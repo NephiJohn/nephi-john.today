@@ -98,6 +98,9 @@ function decode(myV)
 				{
 				default:
 					$("#share-url").val(mStr);
+					$("#share-url").focus();
+					$("#share-url").select();	  				
+					document.execCommand('copy');
 					resizeShare(); 
 				break;
 
