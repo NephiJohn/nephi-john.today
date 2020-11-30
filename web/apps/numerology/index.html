@@ -40,6 +40,9 @@ function decode(myV)
 		{
 		var dateText = $("#full-date").val();
 		var strPlus = numberStringPlus(dateText);
+		var dstrPlus = dateStringPlus(dateText);
+		$("#date-special").html(dstrPlus);
+		
 		var temp = calcNumber9(dateText,"string");
 		var tempA = temp.split(" = ");
 		var fullN = tempA[0];
@@ -99,9 +102,11 @@ function decode(myV)
 				default:
 					$("#share-url").val(mStr);
 					$("#share-url").focus();
-					$("#share-url").select();	  				
+					$("#share-url").select();	
+					document.getElementById("share-url").setSelectionRange(0, 99999); /*For mobile devices*/					
 					document.execCommand('copy');
-					resizeShare(); 
+					resizeShare(); 					
+					$("#share-input").delay(1000).fadeOut("slow");
 				break;
 
 				// <!-- DEVIL GONE //-->
@@ -159,11 +164,9 @@ function decode(myV)
 </head>
 <body>
 <DIV style="margin: 0 auto;">
-<TABLE width=1200 align="center">
+<TABLE width=1200 align="center" border=0>
 	<TR>
-		<TD width=200 valign="top" align="center">
-			<!-- DEVIL GONE //-->
-		</TD>
+		
 		<TD valign="top" align="center">
 			<!-- DEVIL GONE //-->
 <!-- main body //-->
@@ -171,7 +174,7 @@ function decode(myV)
 
 <h1 align="center" id="header" style="position: relative; top: -20px;">
 
-<SPAN style="margin-right: 55px; font-size: 18px; color: black;" id="number-full-wrapper">
+<SPAN style="margin-right: 55px; font-size: 18px; color: black;" class="number-full-wrapper">
 	<span class="fa-stack fa-2x">
 	  <span class="fa fa-stack-1x" id="number-full-details" style="font-size: 75%;"></span>
 	  <i class="fa fa-circle-thin fa-stack-2x"></i>
@@ -180,7 +183,7 @@ function decode(myV)
 
 <span style="margin-right: 35px;"><i class="fa fa-sort-numeric-asc"></i></span> Numerology <span style="margin-left: 35px;"><i class="fa fa-sort-numeric-desc"></i></span>
 
-<SPAN style="margin-left: 55px; font-size: 18px; color: white;" id="number-full-wrapper">
+<SPAN style="margin-left: 55px; font-size: 18px; color: white;" class="number-full-wrapper">
 	<span class="fa-stack fa-3x">
 	  <span class="fa fa-stack-1x" id="number-full"></span>
 	  <i class="fa fa-circle-o fa-stack-2x"></i>
@@ -198,7 +201,7 @@ birth date		vowels	consonants		growth
 //-->
 
 <form name="myForm">
-<DIV align="center" style="width: 800px; margin: 0 auto; position: relative; top: -35px;">
+<DIV align="center" style="width: 1200px; margin: 0 auto; position: relative; top: -35px;">
 		<div id="gender-info" align="center">
 			<input type="radio" id="gender-boy" name="myGender">
 				<label id="label-gender-boy" for="gender-boy">Boy</label>
@@ -209,7 +212,7 @@ birth date		vowels	consonants		growth
 		<div id="share-the-stuff" align="right" style="">
 			<TABLE>
 				<TR>
-					<TD><a class="share-buttons" href="javascript: sharePage('');" id="link-share"><i class="fa fa-share-alt-square fa-2x" title="Share the Link!"></i></a></TD>
+					<TD><a class="share-buttons" href="javascript: sharePage('');" id="link-share"><i class="fa fa-share-alt-square fa-2x my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Share the Link! <BR /> Copy to Clipboard!"></i></a></TD>
 				</TR>
 			</TABLE>
 		<DIV id="share-input" style="display: none;"><input type="text" size=55 name="shareURL" id="share-url" onfocus="this.select();" style="display: inline; text-align: center;" /> <i class="fa fa-times" style="display: inline;" id="share-input-close"></i></DIV>
@@ -277,11 +280,11 @@ birth date		vowels	consonants		growth
 
 </DIV>
 
-<DIV align="center" style="background-color: #333333; width: 800px; margin: 0 auto; position: relative; top: -60px;">
-<TABLE width=100%>
+<DIV align="center" style="background-color: #333333; width: 1200px; margin: 0 auto; position: relative; top: -60px;">
+<TABLE width=100% border=0>
 	<TR>
 		<TD valign="top" align="left">
-			<TABLE width=550>
+			<TABLE width=850 border=0>
 				<TR>
 					<TH width=100 valign="top">
 						<DIV id="date-number-wrapper" style="color: green;">
@@ -292,11 +295,14 @@ birth date		vowels	consonants		growth
 						</DIV>
 					</TH>
 					<TH width=100 valign="top"><BR />Date of Birth</TH>
-					<TD valign="top">
+					<TD valign="top">						
 							<BR />
 						<input type="text" class="monospace" name="fulldate" id="full-date" style="color: green; width: 8.5em; height: 1.5em;" /> 
 							<BR />
-						<DIV id="date-details" class="monospace" style="font-family: 'Roboto Thin';width: 300px; color: green;"></DIV> <SPAN style="display:none;" id="date-total"></SPAN>
+						<TABLE width=450 border=0><TR><TH valign="top" align="right">
+							<DIV id="date-special" class="monospace" style="font-family: 'Roboto Thin'; color: forestgreen;"></DIV>
+							<DIV id="date-details" class="monospace" style="font-family: 'Roboto Thin'; color: #71B571;"></DIV> <SPAN style="display:none;" id="date-total"></SPAN>
+						</TH></TR></TABLE>
 					  <script>
 							//if( preg_match( "/y[aeiou]/i", $word)){
 							//if( preg_match( "/([b-z]y)|([aeiou]y)/i", $word)){
@@ -339,7 +345,12 @@ birth date		vowels	consonants		growth
 							<BR />
 						<input type="text" class="monospace" name="fullname" id="full-name" style="background-color: lightblue; width: 18em; height: 1.5em;" /> 
 							<BR />
-						<DIV id="full-name-details" class="monospace" style="font-family: 'Roboto Thin';width: 300px; color: green;"></DIV> <SPAN style="display:none;"  id="full-name-total"></SPAN>
+							
+						<TABLE width=450 border=0><TR><TH valign="top" align="right">
+							<DIV id="full-name-details" class="monospace" style="font-family: 'Roboto Thin'; color: green;"></DIV> <SPAN style="display:none;"  id="full-name-total"></SPAN>
+						</TH></TR></TABLE>
+						
+						
 						<SCRIPT>
 							$('#full-name').keyup(function() {
 									computeName("full-name");
@@ -360,10 +371,9 @@ birth date		vowels	consonants		growth
 		</TD>
 		<TD valign="top" align="center">
 			<DIV align="center">
-			
 
-				<TABLE width=250 cellpadding=1 cellspacing=1>
-					<TR>
+				<TABLE width=350 cellpadding=2 cellspacing=2>
+					<TR style="font-size: 150%; text-decoration: underline;">
 						<TH align="center" width="10%">1</TH><TH align="center" width="10%">2</TH><TH align="center" width="10%">3</TH><TH align="center" width="10%">4</TH><TH align="center" width="10%">5</TH><TH align="center" width="10%">6</TH><TH align="center" width="10%">7</TH><TH align="center" width="10%">8</TH><TH align="center" width="10%">9</TH><TH></TH>
 					</TR>
 
@@ -380,10 +390,10 @@ birth date		vowels	consonants		growth
 
 				<BR /><BR />
 
-				<TABLE width=250 align="center">
+				<TABLE width=350 align="center">
 					<TR>
 						<TD valign="top" align="left" id="show-boys" style="display:none;">
-							<TABLE width=250>
+							<TABLE width=350>
 								<TR>
 									<TH align="center"><i class="fa fa-mars"></i> Search Boys' Names</TH>
 								</TR>
@@ -395,7 +405,7 @@ birth date		vowels	consonants		growth
 														  <i class="fa fa-square-o fa-stack-2x"></i>
 														</span>
 										</SPAN>
-										<input type="text" id="boys-text" name="boysText" /> <BR />
+										<input type="text" id="boys-text" name="boysText" /> <BR /> <BR />
 										<SPAN id="boys-text-details" class="monospace" style="font-family: 'Roboto Thin';width: 250px; color: lightblue; height: 25px; margin: 0 auto;"></SPAN> 
 										<DIV align="center" style="display:none;" id="boys-text-total"></DIV> 
 										
@@ -544,7 +554,7 @@ birth date		vowels	consonants		growth
 						</TD>
 
 						<TD valign="top" align="left" id="show-girls" style="display:none;">
-							<TABLE width=250>
+							<TABLE width=350>
 								<TR>
 									<TH align="center"><i class="fa fa-venus"></i>  Search Girls' Names</TH>
 								</TR>
@@ -556,7 +566,7 @@ birth date		vowels	consonants		growth
 														  <i class="fa fa-square-o fa-stack-2x"></i>
 														</span>
 										</SPAN>
-										<input type="text" id="girls-text" name="girlsText" /> <BR />
+										<input type="text" id="girls-text" name="girlsText" /> <BR /> <BR />
 										<SPAN id="girls-text-details" class="monospace" style="font-family: 'Roboto Thin';width: 250px; color: lightpink; height: 25px; margin: 0 auto;"></SPAN> 
 										<DIV align="center" style="display:none;" id="girls-text-total"></DIV> 
 										
@@ -878,10 +888,7 @@ $(function() {
 
 <!-- main body //-->
 		</TD>
-		<TD width=200  valign="top" align="center">
-			<!-- DEVIL GONE //-->
-
-		</TD>
+		
 	</TR>
 </TABLE>
 </DIV>

@@ -3,20 +3,68 @@
 
 
 
+function dateStringPlus(datestr)
+	{
+	M = ""; D = ""; Y = "";
+	Mn = Dn = Yn = 0;
+	
+	datevec = trim(datestr).split("/");
+	MM = datevec[0];
+	M = "(";
+	for(var i=0;i<MM.length;i++)
+		{
+		myChar = MM.charAt(i);
+		myNumber = returnNumber(myChar);
+		M += "" + myNumber + "  +  ";	
+		Mn += myNumber;	
+		}
+	M  = M .substr(0,M .length-5);
+	M += ")";
+	
+	DD = datevec[1];
+	D = "(" + DD + ")";
+	Dn = parseInt(DD,10);
+	
+	YY = datevec[2];
+	Y = "(";
+	for(var i=0;i<YY.length;i++)
+		{
+		myChar = YY.charAt(i);
+		myNumber = returnNumber(myChar);
+		Y += "" + myNumber + "  +  ";	
+		Yn += myNumber;	
+		}
+	Y  = Y .substr(0,Y .length-5);
+	Y += ")";
+	
+	myS1 = "" + M + "  +  " + D + "  +  " + Y;
+	myS2 = "" + "(" + Mn + ")" + "  +  " + D + "  +  (" + Yn + ")";
+	
+	Tn = Mn + Dn + Yn;
+	// myS3 = "" + "(" + Tn + ")" + "  =  " + reduceMe(Tn);
+	myS3 = "" + "(" + Tn + ")";
+	
+	myS = "" + myS1 + "  ... <br/>" + myS2 + "  ...  " + myS3;
+	
+	return myS;
+	}
 
 function numberStringPlus(word)
 	{
 	myS = "";
 		word=trim(word);
+	myN = 0; myNc = 0;
 	// loop through word
 	for(var i=0;i<word.length;i++)
 		{
 		myChar = word.charAt(i);
 		//console.log(myChar);
-			if(myChar == " ") {myS += "" + "<br/>";}
+			if(myChar == " ") {myS += "" + "  ...  (" + myNc + ")" + "<br/>"; myNc = 0;}
 			myNumber = returnNumber(myChar);
+			
 		if(!isNaN(myNumber))
 			{
+			myNc += myNumber;
 			if(myNumber !=0)
 				{
 				myS += "" + myNumber + "  +  ";
@@ -25,8 +73,9 @@ function numberStringPlus(word)
 		}
 		if(myS.length > 5)
 			{
-			myS = myS.substr(0,myS.length-5);
+			// myS = myS.substr(0,myS.length-5);
 			}
+		myS += "" + "  ...  (" + myNc + ")" + "  "; 
 	return myS;
 	}
 
