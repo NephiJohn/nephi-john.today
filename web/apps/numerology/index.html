@@ -100,13 +100,16 @@ function decode(myV)
 			switch(which)
 				{
 				default:
-					$("#share-url").val(mStr);
-					$("#share-url").focus();
-					$("#share-url").select();	
-					document.getElementById("share-url").setSelectionRange(0, 99999); /*For mobile devices*/					
+					//$("#share-url").val(mStr);
+					//$("#share-url").focus();
+					//$("#share-url").select();						
+					//resizeShare(); 		
+					var obj = document.getElementById("share-url");
+					obj.value = mStr;
+					obj.select();
+					obj.setSelectionRange(0, 99999); /*For mobile devices*/					
 					document.execCommand('copy');
-					resizeShare(); 					
-					$("#share-input").delay(1000).fadeOut("slow");
+					//$("#share-input").delay(1000).fadeOut("slow");
 				break;
 
 				// <!-- DEVIL GONE //-->
@@ -212,7 +215,7 @@ birth date		vowels	consonants		growth
 		<div id="share-the-stuff" align="right" style="">
 			<TABLE>
 				<TR>
-					<TD><a class="share-buttons" href="javascript: sharePage('');" id="link-share"><i class="fa fa-share-alt-square fa-2x my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Share the Link! <BR /> Copy to Clipboard!"></i></a></TD>
+					<TD><div class="share-buttons" onclick="sharePage('');" id="link-share"><i class="fa fa-share-alt-square fa-2x my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Double-Click to Copy to Clipboard!"></i></div></TD>
 				</TR>
 			</TABLE>
 		<DIV id="share-input" style="display: none;"><input type="text" size=55 name="shareURL" id="share-url" onfocus="this.select();" style="display: inline; text-align: center;" /> <i class="fa fa-times" style="display: inline;" id="share-input-close"></i></DIV>
@@ -298,12 +301,7 @@ birth date		vowels	consonants		growth
 					<TD valign="top">						
 							<BR />
 						<input type="text" class="monospace" name="fulldate" id="full-date" style="color: green; width: 8.5em; height: 1.5em;" /> 
-							<BR />
-						<TABLE width=450 border=0><TR><TH valign="top" align="right">
-							<DIV id="date-special" class="monospace" style="font-family: 'Roboto Thin'; color: forestgreen;"></DIV>
-							<DIV id="date-details" class="monospace" style="font-family: 'Roboto Thin'; color: #71B571;"></DIV> <SPAN style="display:none;" id="date-total"></SPAN>
-						</TH></TR></TABLE>
-					  <script>
+						<script>
 							//if( preg_match( "/y[aeiou]/i", $word)){
 							//if( preg_match( "/([b-z]y)|([aeiou]y)/i", $word)){
 
@@ -315,11 +313,10 @@ birth date		vowels	consonants		growth
 														yearRange: "1900:2020",
 														//minDate: new Date(1900, 1 - 1, 1),
 														onClose: function(dateText, inst){
-															
-														computeDate();
+															computeDate();
 															}
 														}
-														);
+													);
 						  });
 					  </script>
 
@@ -328,7 +325,18 @@ birth date		vowels	consonants		growth
 									computeDate();
 									
 								});
+							$('#full-date').blur(function() {
+									computeDate();
+									
+								});
 						</SCRIPT>
+						
+							<BR />
+						<TABLE width=450 border=0><TR><TH valign="top" align="right">
+							<DIV id="date-special" class="monospace" style="font-family: 'Roboto Thin'; color: forestgreen;"></DIV>
+							<DIV id="date-details" class="monospace" style="font-family: 'Roboto Thin'; color: #71B571;"></DIV> <SPAN style="display:none;" id="date-total"></SPAN>
+						</TH></TR></TABLE>
+					  
 					</TD>
 				</TR>
 				<TR>
@@ -344,11 +352,6 @@ birth date		vowels	consonants		growth
 					<TD valign="top">
 							<BR />
 						<input type="text" class="monospace" name="fullname" id="full-name" style="background-color: lightblue; width: 18em; height: 1.5em;" /> 
-							<BR />
-							
-						<TABLE width=450 border=0><TR><TH valign="top" align="right">
-							<DIV id="full-name-details" class="monospace" style="font-family: 'Roboto Thin'; color: green;"></DIV> <SPAN style="display:none;"  id="full-name-total"></SPAN>
-						</TH></TR></TABLE>
 						
 						
 						<SCRIPT>
@@ -357,6 +360,16 @@ birth date		vowels	consonants		growth
 									
 								});
 						</SCRIPT>
+						
+						
+							<BR />
+							
+						<TABLE width=450 border=0><TR><TH valign="top" align="right">
+							<DIV id="full-name-details" class="monospace" style="font-family: 'Roboto Thin'; color: green;"></DIV> <SPAN style="display:none;"  id="full-name-total"></SPAN>
+						</TH></TR></TABLE>
+						
+						
+						
 					</TD>
 				</TR>
 				<TR>
